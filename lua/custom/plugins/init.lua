@@ -5,4 +5,9 @@
 
 vim.o.scrolloff = 7
 
+-- Fold
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.cmd 'set foldlevel=99'
+
 return {}
