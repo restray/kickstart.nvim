@@ -579,7 +579,20 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
+        tsserver = {
+          init_options = {
+            plugins = {
+              {
+                name = '@vue/typescript-plugin',
+                location = "/usr/lib/node_modules/@vue/typescript-plugin",
+                -- If .vue file cannot be recognized in either js or ts file try to add `typescript` and `javascript` in languages table.
+                languages = { 'vue' },
+              },
+            },
+          },
+          filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+        },
+        volar = {},
         --
 
         lua_ls = {
