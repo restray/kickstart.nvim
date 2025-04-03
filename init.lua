@@ -685,15 +685,16 @@ require('lazy').setup({
           init_options = {
             plugins = {
               {
-                name = '@vue/typescript-plugin',
-                location = "/usr/lib/node_modules/@vue/typescript-plugin",
-                -- If .vue file cannot be recognized in either js or ts file try to add `typescript` and `javascript` in languages table.
-                languages = { 'vue' },
+                name = "@vue/typescript-plugin",
+                location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
+                languages = {"javascript", "typescript", "vue"},
               },
             },
           },
           filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
         },
+
+        volar = {},
 
         lua_ls = {
           -- cmd = { ... },
