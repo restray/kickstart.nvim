@@ -686,7 +686,7 @@ require('lazy').setup({
             plugins = {
               {
                 name = "@vue/typescript-plugin",
-                location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
+                location = os.getenv("VUE_TYPESCRIPT_SERVER") ~= "" and os.getenv("VUE_TYPESCRIPT_SERVER") or "/usr/local/lib/node_modules/@vue/typescript-plugin",
                 languages = {"javascript", "typescript", "vue"},
               },
             },
