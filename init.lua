@@ -483,11 +483,12 @@ require('lazy').setup({
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
-    version = "1.*",
+    version = '1.*',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
+<<<<<<< HEAD
       {
         'mason-org/mason.nvim',
         ---@module 'mason.settings'
@@ -497,6 +498,10 @@ require('lazy').setup({
       },
       -- Maps LSP server names between nvim-lspconfig and Mason package names.
       'mason-org/mason-lspconfig.nvim',
+=======
+      { 'mason-org/mason.nvim', version = '1.*', opts = {} },
+      { 'mason-org/mason-lspconfig.nvim', version = '1.*' },
+>>>>>>> a00a32c (add mcphub)
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
@@ -614,9 +619,10 @@ require('lazy').setup({
           init_options = {
             plugins = {
               {
-                name = "@vue/typescript-plugin",
-                location = os.getenv("VUE_TYPESCRIPT_SERVER") ~= "" and os.getenv("VUE_TYPESCRIPT_SERVER") or "/usr/local/lib/node_modules/@vue/typescript-plugin",
-                languages = {"javascript", "typescript", "vue"},
+                name = '@vue/typescript-plugin',
+                location = os.getenv 'VUE_TYPESCRIPT_SERVER' ~= '' and os.getenv 'VUE_TYPESCRIPT_SERVER'
+                  or '/usr/local/lib/node_modules/@vue/typescript-plugin',
+                languages = { 'javascript', 'typescript', 'vue' },
               },
             },
           },
@@ -890,6 +896,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
     build = ':TSUpdate',
+<<<<<<< HEAD
     branch = 'main',
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter-intro`
     config = function()
@@ -937,6 +944,49 @@ require('lazy').setup({
         end,
       })
     end,
+=======
+    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+    opts = {
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'typescript',
+        'javascript',
+        'vue',
+        'scss',
+        'json',
+        'yaml',
+        'go',
+        'python',
+      },
+      -- Autoinstall languages that are not installed
+      auto_install = true,
+      highlight = {
+        enable = true,
+        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+        --  If you are experiencing weird indenting issues, add the language to
+        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
+        additional_vim_regex_highlighting = { 'ruby' },
+      },
+      indent = { enable = true, disable = { 'ruby' } },
+    },
+    -- There are additional nvim-treesitter modules that you can use to interact
+    -- with nvim-treesitter. You should go explore a few and see what interests you:
+    --
+    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
+    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
+    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+>>>>>>> a00a32c (add mcphub)
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the

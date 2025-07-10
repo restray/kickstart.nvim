@@ -19,7 +19,7 @@ return {
     vim.keymap.set('n', '<leader>he', function()
       require('harpoon.ui').nav_file(3)
     end, { desc = '[H]arpoon go to file 3' })
-    vim.keymap.set('n', "<leader>hr", function()
+    vim.keymap.set('n', '<leader>hr', function()
       require('harpoon.ui').nav_file(4)
     end, { desc = '[H]arpoon go to file 4' })
     vim.keymap.set('n', '<leader>ht', function()
