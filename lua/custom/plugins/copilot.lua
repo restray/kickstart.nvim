@@ -8,8 +8,22 @@ return {
     branch = 'tools',
     build = 'make tiktoken',
     config = function()
-      local chat = require 'CopilotChat'
-      chat.setup()
+      require 'CopilotChat'.setup()
     end,
   },
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = "<S-Tab>",
+          },
+        }
+      })
+    end,
+  }
 }
