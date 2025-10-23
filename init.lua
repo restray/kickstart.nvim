@@ -628,15 +628,6 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         --
-        ts_ls = {
-          init_options = {
-            plugins = {
-              vue_plugin,
-            },
-          },
-          filetypes = tsserver_filetypes,
-        },
-
         vtsls = {
           settings = {
             vtsls = {
@@ -649,6 +640,7 @@ require('lazy').setup({
           },
           filetypes = tsserver_filetypes,
         },
+        volar = {},
 
         stylua = {}, -- Used to format Lua code
 
