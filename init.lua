@@ -687,21 +687,25 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        ts_ls = {
-          init_options = {
-            plugins = {
-              {
-                name = '@vue/typescript-plugin',
-                location = os.getenv 'VUE_TYPESCRIPT_SERVER' ~= '' and os.getenv 'VUE_TYPESCRIPT_SERVER'
-                  or '/usr/local/lib/node_modules/@vue/typescript-plugin',
-                languages = { 'javascript', 'typescript', 'vue' },
+        --
+        vtsls = {
+          settings = {
+            vtsls = {
+              tsserver = {
+                globalPlugins = {
+                  {
+                    name = '@vue/typescript-plugin',
+                    location = os.getenv 'VUE_TYPESCRIPT_SERVER' ~= '' and os.getenv 'VUE_TYPESCRIPT_SERVER'
+                      or '/usr/local/lib/node_modules/@vue/typescript-plugin',
+                    languages = { 'vue' },
+                    configNamespace = 'typescript',
+                  }
+                },
               },
             },
           },
           filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
         },
-
-        volar = {},
 
         lua_ls = {
           -- cmd = { ... },
@@ -714,6 +718,20 @@ require('lazy').setup({
               },
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
               -- diagnostics = { disable = { 'missing-fields' } },
+            },
+          },
+        },
+
+        gopls = {
+          filetypes = { "go", "gomod", "gowork", "gotmpl" },
+          root_dir = require('lspconfig').util.root_pattern("go.work", "go.mod", ".git"),
+          settings = {
+            gopls = {
+              completeUnimported = true,
+              usePlaceholders = true,
+              analyses = {
+                unusedparams = true,
+              },
             },
           },
         },
