@@ -488,7 +488,6 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-<<<<<<< HEAD
       {
         'mason-org/mason.nvim',
         ---@module 'mason.settings'
@@ -498,10 +497,6 @@ require('lazy').setup({
       },
       -- Maps LSP server names between nvim-lspconfig and Mason package names.
       'mason-org/mason-lspconfig.nvim',
-=======
-      { 'mason-org/mason.nvim', version = '1.*', opts = {} },
-      { 'mason-org/mason-lspconfig.nvim', version = '1.*' },
->>>>>>> a00a32c (add mcphub)
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
@@ -615,25 +610,34 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        ts_ls = {
-          init_options = {
-            plugins = {
-              {
-                name = '@vue/typescript-plugin',
-                location = os.getenv 'VUE_TYPESCRIPT_SERVER' ~= '' and os.getenv 'VUE_TYPESCRIPT_SERVER'
-                  or '/usr/local/lib/node_modules/@vue/typescript-plugin',
-                languages = { 'javascript', 'typescript', 'vue' },
+        --
+        vtsls = {
+          settings = {
+            vtsls = {
+              tsserver = {
+                globalPlugins = {
+                  {
+                    name = '@vue/typescript-plugin',
+                    location = os.getenv 'VUE_TYPESCRIPT_SERVER' ~= '' and os.getenv 'VUE_TYPESCRIPT_SERVER'
+                      or '/usr/local/lib/node_modules/@vue/typescript-plugin',
+                    languages = { 'vue' },
+                    configNamespace = 'typescript',
+                  }
+                },
               },
             },
           },
           filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
         },
 
+<<<<<<< HEAD
         stylua = {}, -- Used to format Lua code
 
         -- Special Lua Config, as recommended by neovim help docs
         volar = {},
 
+=======
+>>>>>>> 2b11fd1 (update vue config)
         lua_ls = {
           on_init = function(client)
             if client.workspace_folders then
@@ -659,6 +663,20 @@ require('lazy').setup({
           end,
           settings = {
             Lua = {},
+          },
+        },
+
+        gopls = {
+          filetypes = { "go", "gomod", "gowork", "gotmpl" },
+          root_dir = require('lspconfig').util.root_pattern("go.work", "go.mod", ".git"),
+          settings = {
+            gopls = {
+              completeUnimported = true,
+              usePlaceholders = true,
+              analyses = {
+                unusedparams = true,
+              },
+            },
           },
         },
       }
