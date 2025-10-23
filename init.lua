@@ -596,10 +596,27 @@ require('lazy').setup({
         end,
       })
 
+      --  Add any additional override configuration in the following tables. Available keys are:
+      --  - cmd (table): Override the default command used to start the server
+      --  - filetypes (table): Override the default list of associated filetypes for the server
+      --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
+      --  - settings (table): Override the default settings passed when initializing the server.
+      --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local vue_language_server_path = os.getenv 'VUE_TYPESCRIPT_SERVER' ~= '' and os.getenv 'VUE_TYPESCRIPT_SERVER'
+                  or '/usr/local/lib/node_modules/@vue/typescript-plugin'
+      local tsserver_filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
+      local vue_plugin = {
+        name = '@vue/typescript-plugin',
+        location = vue_language_server_path,
+        languages = { 'vue' },
+        configNamespace = 'typescript',
+      }
+
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --  See `:help lsp-config` for information about keys and how to configure
       ---@type table<string, vim.lsp.Config>
+      --
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -611,33 +628,33 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         --
+        ts_ls = {
+          init_options = {
+            plugins = {
+              vue_plugin,
+            },
+          },
+          filetypes = tsserver_filetypes,
+        },
+
         vtsls = {
           settings = {
             vtsls = {
               tsserver = {
                 globalPlugins = {
-                  {
-                    name = '@vue/typescript-plugin',
-                    location = os.getenv 'VUE_TYPESCRIPT_SERVER' ~= '' and os.getenv 'VUE_TYPESCRIPT_SERVER'
-                      or '/usr/local/lib/node_modules/@vue/typescript-plugin',
-                    languages = { 'vue' },
-                    configNamespace = 'typescript',
-                  }
+                  vue_plugin,
                 },
               },
             },
           },
-          filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+          filetypes = tsserver_filetypes,
         },
 
-<<<<<<< HEAD
         stylua = {}, -- Used to format Lua code
 
         -- Special Lua Config, as recommended by neovim help docs
         volar = {},
 
-=======
->>>>>>> 2b11fd1 (update vue config)
         lua_ls = {
           on_init = function(client)
             if client.workspace_folders then
@@ -914,7 +931,6 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
     build = ':TSUpdate',
-<<<<<<< HEAD
     branch = 'main',
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter-intro`
     config = function()
@@ -962,49 +978,6 @@ require('lazy').setup({
         end,
       })
     end,
-=======
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = {
-        'bash',
-        'c',
-        'diff',
-        'html',
-        'lua',
-        'luadoc',
-        'markdown',
-        'markdown_inline',
-        'query',
-        'vim',
-        'vimdoc',
-        'typescript',
-        'javascript',
-        'vue',
-        'scss',
-        'json',
-        'yaml',
-        'go',
-        'python',
-      },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
-    -- There are additional nvim-treesitter modules that you can use to interact
-    -- with nvim-treesitter. You should go explore a few and see what interests you:
-    --
-    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
->>>>>>> a00a32c (add mcphub)
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
