@@ -676,6 +676,16 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local vue_language_server_path = os.getenv 'VUE_TYPESCRIPT_SERVER' ~= '' and os.getenv 'VUE_TYPESCRIPT_SERVER'
+                  or '/usr/local/lib/node_modules/@vue/typescript-plugin'
+      local tsserver_filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
+      local vue_plugin = {
+        name = '@vue/typescript-plugin',
+        location = vue_language_server_path,
+        languages = { 'vue' },
+        configNamespace = 'typescript',
+      }
+
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -688,23 +698,26 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         --
+        ts_ls = {
+          init_options = {
+            plugins = {
+              vue_plugin,
+            },
+          },
+          filetypes = tsserver_filetypes,
+        },
+
         vtsls = {
           settings = {
             vtsls = {
               tsserver = {
                 globalPlugins = {
-                  {
-                    name = '@vue/typescript-plugin',
-                    location = os.getenv 'VUE_TYPESCRIPT_SERVER' ~= '' and os.getenv 'VUE_TYPESCRIPT_SERVER'
-                      or '/usr/local/lib/node_modules/@vue/typescript-plugin',
-                    languages = { 'vue' },
-                    configNamespace = 'typescript',
-                  }
+                  vue_plugin,
                 },
               },
             },
           },
-          filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+          filetypes = tsserver_filetypes,
         },
 
         lua_ls = {
