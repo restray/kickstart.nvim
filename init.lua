@@ -640,13 +640,11 @@ require('lazy').setup({
           },
           filetypes = tsserver_filetypes,
         },
-        volar = {},
+        ["vue-language-server"] = {},
 
         stylua = {}, -- Used to format Lua code
 
         -- Special Lua Config, as recommended by neovim help docs
-        volar = {},
-
         lua_ls = {
           on_init = function(client)
             if client.workspace_folders then
