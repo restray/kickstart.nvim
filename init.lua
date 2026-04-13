@@ -483,7 +483,6 @@ require('lazy').setup({
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
-    version = '1.*',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
@@ -673,19 +672,7 @@ require('lazy').setup({
           },
         },
 
-        gopls = {
-          filetypes = { "go", "gomod", "gowork", "gotmpl" },
-          root_dir = require('lspconfig').util.root_pattern("go.work", "go.mod", ".git"),
-          settings = {
-            gopls = {
-              completeUnimported = true,
-              usePlaceholders = true,
-              analyses = {
-                unusedparams = true,
-              },
-            },
-          },
-        },
+        gopls = {},
       }
 
       -- Ensure the servers and tools above are installed
