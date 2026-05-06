@@ -641,6 +641,8 @@ require('lazy').setup({
         },
         ["vue-language-server"] = {},
 
+        svelte = {},
+
         stylua = {}, -- Used to format Lua code
 
         -- Special Lua Config, as recommended by neovim help docs
@@ -912,7 +914,7 @@ require('lazy').setup({
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter-intro`
     config = function()
       -- ensure basic parser are installed
-      local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'typescript', 'javascript', 'vue', 'scss', 'json', 'yaml', 'go', 'python' },
+      local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'typescript', 'javascript', 'vue', 'scss', 'json', 'yaml', 'go', 'python', 'svelte' }
       require('nvim-treesitter').install(parsers)
 
       ---@param buf integer
