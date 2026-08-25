@@ -656,7 +656,6 @@ require('lazy').setup({
           },
           filetypes = tsserver_filetypes,
         },
-        ["vue-language-server"] = {},
 
         svelte = {},
 
@@ -710,7 +709,11 @@ require('lazy').setup({
 
       for name, server in pairs(servers) do
         vim.lsp.config(name, server)
-        vim.lsp.enable(name)
+        if name == "vtsls" then
+          vim.lsp.enable({name, "vue_ls"})
+        else
+          vim.lsp.enable(name)
+        end
       end
     end,
   },
